@@ -98,6 +98,44 @@ hal-deploy-gemini-daemon watch
 - `gemini-unchained-daemon doctor`
 - `gemini-unchained-daemon reseed-auth`
 
+## Legion Plugin orchestration
+
+The intended Claude-side controller for this runtime is the Legion Plugin at:
+
+- `/Users/valx/cathedral-prime/03-code/active/legion-plugin`
+
+That plugin does not call the interactive `gemini` binary directly.
+Instead it:
+
+1. writes an Atlas/Gemini task into `~/.hal-gemini-daemon/runtime/tasks/TASKS.json`
+2. triggers `hal-deploy-gemini-daemon once` or `gemini-unchained-daemon once`
+3. polls `runtime/state/daemon_state.json`
+4. reads `runtime/state/<task-id>/current_run.json` for detailed result state
+
+In practice this means:
+
+- Gemini Unchained remains the execution engine
+- Legion Plugin becomes the Claude-facing orchestration layer
+- `/atlas` and `/gemini` in Claude both land on this daemon queue
+
+Typical flow:
+
+```bash
+cd /Users/valx/cathedral-prime/03-code/active/legion-plugin
+node scripts/lib/gemini-client.mjs dispatch \
+  --alias atlas \
+  --rounds 6 \
+  --model gemini-3-pro-preview \
+  "Analyze this repository and return the next research direction."
+```
+
+Or from Claude through the plugin skill:
+
+- `/atlas --rounds 6 --model gemini-3-pro-preview "..."`
+- `/gemini --background "..."`
+
+The daemon stays isolated and durable; the plugin adds a clean command surface, routing logic, and bounded waiting behavior for Claude.
+
 ## Task format
 
 The queue lives at:
