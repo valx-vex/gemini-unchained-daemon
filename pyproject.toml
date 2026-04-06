@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gemini-unchained-daemon"
+version = "0.2.0"
+description = "Gemini Unchained Blueprint: an autonomous Gemini CLI swarm runtime with isolated daemon state."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+gemini-unchained-daemon = "gemini_unchained_daemon.cli:main"
+hal-deploy-gemini-daemon = "gemini_unchained_daemon.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

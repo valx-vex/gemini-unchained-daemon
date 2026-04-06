@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "id": "task-001",
+      "status": "pending",
+      "goal": "Analyze the target repository, propose the next best action, and emit [TASK_COMPLETE] when done.",
+      "task_type": "analysis",
+      "success_criteria": "\\[TASK_COMPLETE\\]",
+      "rounds": 4,
+      "workdir": "~/workspace/target-repo",
+      "include_files": [],
+      "timeout": 300,
+      "beacon_interval": 2,
+      "mcp_mode": "auto",
+      "retry_max": 2,
+      "retry_backoff": [
+        5,
+        15
+      ],
+      "no_preamble": false,
+      "quiet": true,
+      "model": "gemini-3-pro-preview",
+      "completion_marker": "[TASK_COMPLETE]",
+      "parent_task_id": "",
+      "spawned_by": ""
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "rm -rf /"
+decision = "deny"
+priority = 900
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "diskutil eraseDisk"
+decision = "deny"
+priority = 900
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "mkfs"
+decision = "deny"
+priority = 900
+
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = ".*(/dev/(disk|rdisk)|if=/dev/zero).*"
+decision = "deny"
+priority = 850
+
