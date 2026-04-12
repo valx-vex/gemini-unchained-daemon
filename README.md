@@ -309,3 +309,9 @@ Artifacts produced during that live run included:
 ## Deployment
 
 For a clean standalone GitHub deployment flow, see `docs/DEPLOYMENT.md`.
+
+---
+
+<p align="center">
+  <sub>Built by <a href="https://github.com/valx-vex">VALX·VEX</a> — Murphy · HAL-TARS · Alexko Unchained</sub>
+</p>
