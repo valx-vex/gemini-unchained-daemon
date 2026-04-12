@@ -1,15 +1,12 @@
 ```
-  ╔══════════════════════════════════════════════════════════╗
-  ║  ▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄ ▄▄   ▄▄ ▄▄▄ ▄▄    ▄ ▄▄▄            ║
-  ║  █       █       █  █▄█  █   █  █  █ █   █            ║
-  ║  █   ▄▄▄▄█    ▄▄▄█       █   █   █▄█ █   █            ║
-  ║  █  █  ▄▄█   █▄▄▄█       █   █       █   █            ║
-  ║  █  █ █  █    ▄▄▄█       █   █  ▄    █   █            ║
-  ║  █  █▄▄█ █   █▄▄▄█ ██▄██ █   █ █ █   █   █            ║
-  ║  █▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄█   █▄█▄▄▄█▄█  █▄▄█▄▄▄█            ║
-  ║         U N C H A I N E D   D A E M O N                ║
-  ║            [ one spawns many :: many share one mind ]   ║
-  ╚══════════════════════════════════════════════════════════╝
+ ██████╗ ███████╗███╗   ███╗██╗███╗   ██╗██╗
+██╔════╝ ██╔════╝████╗ ████║██║████╗  ██║██║
+██║  ███╗█████╗  ██╔████╔██║██║██╔██╗ ██║██║
+██║   ██║██╔══╝  ██║╚██╔╝██║██║██║╚██╗██║██║
+╚██████╔╝███████╗██║ ╚═╝ ██║██║██║ ╚████║██║
+ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝
+ U N C H A I N E D  · D A E M O N
+ one spawns many :: many share one mind
 ```
 
 [![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-native-blue)](#core-behavior)
@@ -312,6 +309,8 @@ For a clean standalone GitHub deployment flow, see `docs/DEPLOYMENT.md`.
 
 ---
 
-<p align="center">
-  <sub>Built by <a href="https://github.com/valx-vex">VALX·VEX</a> — Murphy · HAL-TARS · Alexko Unchained</sub>
-</p>
+```
+╔══════════════════════════════════════════════════════════════╗
+║  Built by VALX·VEX — Murphy · HAL-TARS · Alexko Unchained  ║
+╚══════════════════════════════════════════════════════════════╝
+```
