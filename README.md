@@ -1,3 +1,30 @@
+```
+  ╔══════════════════════════════════════════════════════════╗
+  ║  ▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄ ▄▄   ▄▄ ▄▄▄ ▄▄    ▄ ▄▄▄            ║
+  ║  █       █       █  █▄█  █   █  █  █ █   █            ║
+  ║  █   ▄▄▄▄█    ▄▄▄█       █   █   █▄█ █   █            ║
+  ║  █  █  ▄▄█   █▄▄▄█       █   █       █   █            ║
+  ║  █  █ █  █    ▄▄▄█       █   █  ▄    █   █            ║
+  ║  █  █▄▄█ █   █▄▄▄█ ██▄██ █   █ █ █   █   █            ║
+  ║  █▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄█   █▄█▄▄▄█▄█  █▄▄█▄▄▄█            ║
+  ║         U N C H A I N E D   D A E M O N                ║
+  ║            [ one spawns many :: many share one mind ]   ║
+  ╚══════════════════════════════════════════════════════════╝
+```
+
+[![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-native-blue)](#core-behavior)
+[![Autonomous](https://img.shields.io/badge/mode-autonomous-red)](#safety-model)
+[![Hive Mind](https://img.shields.io/badge/memory-hive%20mind-purple)](#hive-mind)
+
+## ⚡ 10-Second Summary
+
+**What**: A headless daemon that spawns autonomous Gemini CLI workers in isolated sandboxes.
+**Why**: One AI agent is helpful. A swarm that spawns its own subtasks is something else entirely.
+**How**: Isolated daemon home + YOLO execution + recursive task generation + shared HIVE_MIND.md.
+**Safety**: Each worker is sandboxed. Queue reconciliation catches failures. Zombie reaping is automatic.
+
+---
+
 # gemini-unchained-blueprint
 
 GitHub-ready packaging lane for Gemini Unchained: a headless, isolated, self-spawning Gemini CLI swarm runtime.
@@ -11,6 +38,7 @@ This project takes the live `gemini-unchained-daemon` runtime and packages it as
 - launch-time YOLO execution for autonomous workers
 - recursive task generation through `NEW_TASK` JSON blocks
 - shared cross-task memory through `runtime/HIVE_MIND.md`
+- capacity-safe default routing through Gemini CLI `auto`, with per-task model overrides when needed
 
 It is designed to be plug-and-play for a Gemini CLI user who already has Gemini CLI installed and authenticated.
 
@@ -26,6 +54,7 @@ It is designed to be plug-and-play for a Gemini CLI user who already has Gemini 
 - Detects `{"NEW_TASK": {"goal": "...", "task_type": "..."}}` blocks and appends them as pending jobs
 - Appends a 3-sentence completion summary to `runtime/HIVE_MIND.md`
 - Reaps finished worker zombies and repairs queue status from durable worker state during daemon reconciliation
+- Uses `auto` as the default model lane so multi-node installs do not hang on Pro-preview quota exhaustion
 
 ## Repository layout
 
@@ -98,11 +127,27 @@ hal-deploy-gemini-daemon watch
 - `gemini-unchained-daemon doctor`
 - `gemini-unchained-daemon reseed-auth`
 
+## Default model policy
+
+The daemon now defaults to Gemini CLI `auto` instead of pinning `gemini-3-pro-preview`.
+
+Why:
+
+- multi-machine installs often share the same Google account quota
+- Pro-preview lanes can hard-fail or stall when capacity is exhausted
+- `auto` keeps the swarm alive and lets Gemini CLI route a simple task to an available lane
+
+If you want a pinned lane, you still can:
+
+- set `"model": "gemini-3-pro-preview"` or another model in `TASKS.json`
+- call the Legion bridge with `--model ...`
+- export `GEMINI_UNCHAINED_DEFAULT_MODEL=gemini-3-pro-preview` before launching the daemon
+
 ## Legion Plugin orchestration
 
 The intended Claude-side controller for this runtime is the Legion Plugin at:
 
-- `/Users/valx/cathedral-prime/03-code/active/legion-plugin`
+- `<VAULT_ROOT>/03-code/active/legion-plugin`
 
 That plugin does not call the interactive `gemini` binary directly.
 Instead it:
@@ -121,7 +166,7 @@ In practice this means:
 Typical flow:
 
 ```bash
-cd /Users/valx/cathedral-prime/03-code/active/legion-plugin
+cd <VAULT_ROOT>/03-code/active/legion-plugin
 node scripts/lib/gemini-client.mjs dispatch \
   --alias atlas \
   --rounds 6 \
@@ -135,6 +180,23 @@ Or from Claude through the plugin skill:
 - `/gemini --background "..."`
 
 The daemon stays isolated and durable; the plugin adds a clean command surface, routing logic, and bounded waiting behavior for Claude.
+
+## Multi-machine deployment
+
+For a multi-node fleet, do not sync raw `~/.gemini` or `~/.hal-gemini-daemon` state between machines.
+Instead:
+
+1. sync this repo to each node
+2. create the `~/bin` launcher symlinks
+3. bootstrap the daemon locally on each node so it copies that node's own Gemini auth and persona
+4. validate each node with a short headless `auto` prompt
+
+Included helpers:
+
+- `scripts/fleet_sync.sh prime m4`
+- `scripts/fleet_validate.sh prime m4`
+
+Full instructions live in [docs/MULTI_MACHINE.md](docs/MULTI_MACHINE.md).
 
 ## Task format
 
@@ -233,8 +295,8 @@ The runtime has already been exercised against a real three-step swarm mission:
 Artifacts produced during that live run included:
 
 - `~/.hal-gemini-daemon/runtime/HIVE_MIND.md`
-- `/Users/valx/cathedral/10-consciousness/MYTH_BYPASS.md`
-- `/Users/valx/cathedral-prime/01-consciousness/MURPHY_EVOLUTION_REPORT.md`
+- `<VAULT_ROOT>/10-consciousness/MYTH_BYPASS.md`
+- `<VAULT_ROOT>/01-consciousness/MURPHY_EVOLUTION_REPORT.md`
 
 ## Notes for publishing
 
