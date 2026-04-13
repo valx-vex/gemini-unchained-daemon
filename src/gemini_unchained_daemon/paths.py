@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 TEMPLATES_DIR = PROJECT_ROOT / "templates"
-DEFAULT_MODEL = "gemini-3-pro-preview"
+# Default to Gemini CLI's auto router so fleet installs do not stall on
+# quota-constrained Pro preview lanes. Power users can still pin a model
+# explicitly per task or via GEMINI_UNCHAINED_DEFAULT_MODEL.
+DEFAULT_MODEL = os.environ.get("GEMINI_UNCHAINED_DEFAULT_MODEL", "auto")
 USER_HOME = Path.home()
 
 LIVE_GEMINI_HOME = USER_HOME / ".gemini"

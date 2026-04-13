@@ -19,7 +19,7 @@
       ],
       "no_preamble": false,
       "quiet": true,
-      "model": "gemini-3-pro-preview",
+      "model": "auto",
       "completion_marker": "[TASK_COMPLETE]",
       "parent_task_id": "",
       "spawned_by": ""

@@ -90,7 +90,8 @@ def run_doctor() -> tuple[int, list[dict[str, str]]]:
             text=True,
             capture_output=True,
             env=env,
-            timeout=60,
+            cwd=str(DAEMON_ROOT),
+            timeout=120,
             check=False,
         )
         parsed = parse_cli_output(proc.stdout or proc.stderr)

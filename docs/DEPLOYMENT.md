@@ -2,18 +2,15 @@
 
 ## Current State
 
-This project has been initialized as a standalone local Git repository at:
-
-`/Users/valx/cathedral-prime/03-code/active/gemini-unchained-daemon`
+This project has been initialized as a standalone local Git repository.
 
 If no remote is configured yet, the repository is still fully ready for a private push.
 
 ## Local Validation Before Push
 
-Run:
+Run from the project root:
 
 ```bash
-cd /Users/valx/cathedral-prime/03-code/active/gemini-unchained-daemon
 python3 -m compileall src
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 gemini-unchained-daemon doctor
@@ -23,26 +20,23 @@ gemini-unchained-daemon doctor
 
 Target repository:
 
-`wearelegion1/gemini-unchained-daemon`
+`valx-vex/gemini-unchained-daemon`
 
 Option 1: attach an existing GitHub repo
 
 ```bash
-cd /Users/valx/cathedral-prime/03-code/active/gemini-unchained-daemon
-git remote add origin git@github.com:wearelegion1/gemini-unchained-daemon.git
+git remote add origin git@github.com:valx-vex/gemini-unchained-daemon.git
 ```
 
 Option 2: use HTTPS
 
 ```bash
-cd /Users/valx/cathedral-prime/03-code/active/gemini-unchained-daemon
-git remote add origin https://github.com/wearelegion1/gemini-unchained-daemon.git
+git remote add origin https://github.com/valx-vex/gemini-unchained-daemon.git
 ```
 
 ## First Push
 
 ```bash
-cd /Users/valx/cathedral-prime/03-code/active/gemini-unchained-daemon
 git push -u origin main
 ```
 

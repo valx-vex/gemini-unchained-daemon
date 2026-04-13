@@ -51,7 +51,7 @@ class BootstrapTests(unittest.TestCase):
             self.assertFalse((daemon_root / ".gemini" / "history").exists())
 
             settings = load_json(daemon_root / ".gemini" / "settings.json", {})
-            self.assertEqual(settings["model"]["name"], "gemini-3-pro-preview")
+            self.assertEqual(settings["model"]["name"], "auto")
             self.assertEqual(sorted(settings["mcpServers"].keys()), ["healthy", "remote"])
 
             trusted = load_json(daemon_root / ".gemini" / "trustedFolders.json", {})

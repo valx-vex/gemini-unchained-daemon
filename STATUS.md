@@ -16,6 +16,8 @@ What is implemented:
 - shared `HIVE_MIND.md` memory
 - zombie worker reaping
 - queue-status repair from durable worker state
+- multi-machine sync and validation helpers
+- `auto` default model routing for quota-safe fleet installs
 
 What still deserves real-world shakeout:
 
@@ -37,5 +39,5 @@ Operational split:
 ## Cluster readiness
 
 - Codex HAL/TARS blueprint: docs-first, private beta, ready for controlled multi-node replication
-- Gemini Unchained daemon: live local beta, queue/state model verified, ready for bounded clustered experiments
+- Gemini Unchained daemon: live local beta, queue/state model verified, ready for bounded clustered experiments and repeatable multi-machine rollout
 - Legion Plugin: first backend live through Atlas, ready for plugin-level integration testing before broader cluster rollout
